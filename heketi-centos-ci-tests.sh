@@ -39,7 +39,9 @@ yum -y install \
 	python-virtualenv \
 	ansible \
 	libvirt \
-	libvirt-devel
+	libvirt-devel \
+	ruby \
+	ruby-devel
 
 yum -y group install "Development Tools"
 
@@ -48,7 +50,7 @@ rpm -qa
 
 if ! rpm -q vagrant
 then
-       yum install -y https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.rpm
+       yum install -y https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.rpm
 fi
 vagrant plugin install vagrant-libvirt
 
