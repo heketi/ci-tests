@@ -11,6 +11,10 @@ vagrant_env(){
  "$@"
 }
 
+# get os debug info
+uname -a
+cat /etc/redhat-release
+
 # enable additional sources for yum
 # (SCL repository for Vagrant, epel for ansible)
 yum -y install centos-release-scl epel-release
@@ -38,6 +42,9 @@ yum -y install \
 	libvirt-devel
 
 yum -y group install "Development Tools"
+
+# list all rpms
+rpm -qa
 
 if ! rpm -q vagrant
 then
@@ -78,7 +85,7 @@ then
 	cd heketi
 	git fetch origin pull/${ghprbPullId}/head:pr_${ghprbPullId}
 	git checkout pr_${ghprbPullId}
-	
+
 	# Now rebase on top of master
 	git rebase master
 	if [ $? -ne 0 ] ; then
