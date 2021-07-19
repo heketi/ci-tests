@@ -79,7 +79,9 @@ fi
 # Before that we used godeps
 # (https://github.com/heketi/heketi/pull/400).
 # Originally, it was glock.
-# Detect here which one to use:
+#
+# Support for ancient build dependency tools dropped. Probe for glide
+# or not.
 cd heketi
 if [ -e glide.yaml ]
 then
@@ -87,12 +89,6 @@ then
 	then
 		curl https://glide.sh/get | sh
 	fi
-elif [ -e GLOCKFILE ]
-then
-	go get github.com/robfig/glock
-	glock sync github.com/heketi/heketi
-else
-	go get github.com/tools/godep
 fi
 
 # need to prevent sudo from disabling the SCL
