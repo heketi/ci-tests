@@ -54,17 +54,6 @@ then
 fi
 vagrant plugin install vagrant-libvirt
 
-# install Go
-wantgover=1.15.14
-if ! yum -y install "golang >= ${wantgover}"
-then
-	# not the right version, install manually
-	# download URL comes from https://golang.org/dl/
-	curl -O https://storage.googleapis.com/golang/go${wantgover}.linux-amd64.tar.gz
-	tar xzf go${wantgover}.linux-amd64.tar.gz -C /usr/local
-	export PATH=$PATH:/usr/local/go/bin
-fi
-
 # Vagrant needs libvirtd running
 systemctl start libvirtd
 systemctl start docker
@@ -96,6 +85,21 @@ then
 	    exit 1
 	fi
 	cd ..
+fi
+
+wantgover=1.15.14
+if [ -e "./heketi/tests/functional/test.env" ]; then
+    . "./heketi/tests/functional/test.env"
+fi
+
+# install Go
+if ! yum -y install "golang >= ${wantgover}"
+then
+	# not the right version, install manually
+	# download URL comes from https://golang.org/dl/
+	curl -O https://storage.googleapis.com/golang/go${wantgover}.linux-amd64.tar.gz
+	tar xzf go${wantgover}.linux-amd64.tar.gz -C /usr/local
+	export PATH=$PATH:/usr/local/go/bin
 fi
 
 # The latest way of doing dependencies is to use glide
