@@ -54,13 +54,14 @@ then
 fi
 vagrant plugin install vagrant-libvirt
 
-# install Go (Heketi depends on version 1.6+)
-if ! yum -y install 'golang >= 1.6'
+# install Go
+wantgover=1.15.14
+if ! yum -y install "golang >= ${wantgover}"
 then
 	# not the right version, install manually
 	# download URL comes from https://golang.org/dl/
-	curl -O https://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
-	tar xzf go1.6.2.linux-amd64.tar.gz -C /usr/local
+	curl -O https://storage.googleapis.com/golang/go${wantgover}.linux-amd64.tar.gz
+	tar xzf go${wantgover}.linux-amd64.tar.gz -C /usr/local
 	export PATH=$PATH:/usr/local/go/bin
 fi
 
