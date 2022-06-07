@@ -50,7 +50,7 @@ rpm -qa
 
 if ! rpm -q vagrant
 then
-       yum install -y https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.rpm
+       yum install -y https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.rpm
 fi
 vagrant plugin install vagrant-libvirt
 
